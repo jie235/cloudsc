@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xbc.moka.cloudsc.order.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="xbc.moka.cloudsc.common.entity.Order">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="acct_code" jdbcType="VARCHAR" property="acctCode"/>
+        <result column="prod_code" jdbcType="VARCHAR" property="prodCode"/>
+        <result column="cnt" jdbcType="INTEGER" property="cnt"/>
+        <result column="amount" jdbcType="NUMERIC" property="amount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , order_no, acct_code, prod_code, cnt, amount
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scdemo."t_order"
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from scdemo."t_order"
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xbc.moka.cloudsc.common.entity.Order"
+            useGeneratedKeys="true">
+        insert into scdemo."t_order" (order_no, acct_code, prod_code,
+                                      cnt, amount)
+        values (#{orderNo,jdbcType=VARCHAR}, #{acctCode,jdbcType=VARCHAR}, #{prodCode,jdbcType=VARCHAR},
+                #{cnt,jdbcType=INTEGER}, #{amount,jdbcType=NUMERIC})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xbc.moka.cloudsc.common.entity.Order"
+            useGeneratedKeys="true">
+        insert into scdemo."t_order"
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+                order_no,
+            </if>
+            <if test="acctCode != null">
+                acct_code,
+            </if>
+            <if test="prodCode != null">
+                prod_code,
+            </if>
+            <if test="cnt != null">
+                cnt,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="acctCode != null">
+                #{acctCode,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCode != null">
+                #{prodCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnt != null">
+                #{cnt,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=NUMERIC},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xbc.moka.cloudsc.common.entity.Order">
+        update scdemo."t_order"
+        <set>
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="acctCode != null">
+                acct_code = #{acctCode,jdbcType=VARCHAR},
+            </if>
+            <if test="prodCode != null">
+                prod_code = #{prodCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnt != null">
+                cnt = #{cnt,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=NUMERIC},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xbc.moka.cloudsc.common.entity.Order">
+        update scdemo."t_order"
+        set order_no  = #{orderNo,jdbcType=VARCHAR},
+            acct_code = #{acctCode,jdbcType=VARCHAR},
+            prod_code = #{prodCode,jdbcType=VARCHAR},
+            cnt       = #{cnt,jdbcType=INTEGER},
+            amount    = #{amount,jdbcType=NUMERIC}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByOrderNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from scdemo.t_order where order_no = #{orderNo}
+    </select>
+
+    <update id="updateByOrderNo" parameterType="xbc.moka.cloudsc.common.entity.Order">
+        update scdemo.t_order
+        <set>
+            <if test="acctCode != null">
+                acct_code = #{acctCode},
+            </if>
+            <if test="prodCode != null">
+                prod_code=#{prodCode}
+            </if>
+            <if test="cnt != null">
+                cnt=#{cnt}
+            </if>
+            <if test="amount != null">
+                amount=#{amount}
+            </if>
+        </set>
+        where order_no=#{orderNo}
+    </update>
+
+    <delete id="deleteByOrderNo" parameterType="java.lang.String">
+        delete
+        from scdemo.t_order
+        where order_no = #{orderNo}
+    </delete>
+
+</mapper>

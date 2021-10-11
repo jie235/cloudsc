@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xbc.moka.cloudsc.acct.mapper.AccountMapper">
+    <resultMap id="BaseResultMap" type="xbc.moka.cloudsc.common.entity.Account">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="acct_code" jdbcType="VARCHAR" property="acctCode"/>
+        <result column="acct_name" jdbcType="VARCHAR" property="acctName"/>
+        <result column="amount" jdbcType="NUMERIC" property="amount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , acct_code, acct_name, amount
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scdemo."t_account"
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from scdemo."t_account"
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xbc.moka.cloudsc.common.entity.Account"
+            useGeneratedKeys="true">
+        insert into scdemo."t_account" (acct_code, acct_name, amount)
+        values (#{acctCode,jdbcType=VARCHAR}, #{acctName,jdbcType=VARCHAR}, #{amount,jdbcType=NUMERIC})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xbc.moka.cloudsc.common.entity.Account"
+            useGeneratedKeys="true">
+        insert into scdemo."t_account"
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acctCode != null">
+                acct_code,
+            </if>
+            <if test="acctName != null">
+                acct_name,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="acctCode != null">
+                #{acctCode,jdbcType=VARCHAR},
+            </if>
+            <if test="acctName != null">
+                #{acctName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=NUMERIC},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="xbc.moka.cloudsc.common.entity.Account">
+        update scdemo."t_account"
+        <set>
+            <if test="acctCode != null">
+                acct_code = #{acctCode,jdbcType=VARCHAR},
+            </if>
+            <if test="acctName != null">
+                acct_name = #{acctName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=NUMERIC},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="xbc.moka.cloudsc.common.entity.Account">
+        update scdemo."t_account"
+        set acct_code = #{acctCode,jdbcType=VARCHAR},
+            acct_name = #{acctName,jdbcType=VARCHAR},
+            amount    = #{amount,jdbcType=NUMERIC}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from scdemo.t_account where acct_code = #{acctCode}
+    </select>
+
+    <update id="updateByAcctCode" parameterType="xbc.moka.cloudsc.common.entity.Account">
+        update scdemo.t_account
+        <set>
+            <if test="acctName != null">
+                acct_name = #{acctName},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=NUMERIC},
+            </if>
+        </set>
+        where acct_code=#{acctCode}
+    </update>
+
+    <delete id="deleteByAcctCode" parameterType="java.lang.String">
+        delete
+        from scdemo.t_account
+        where acct_code = #{acctCode}
+    </delete>
+
+
+</mapper>

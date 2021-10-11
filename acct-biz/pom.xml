@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloudsc</artifactId>
+        <groupId>xbc.moka</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+<!--    注意，当前模块即便不存放实际代码，groupId的名称不能和父模块的groupId加上artifactId相同，否则引用不到父模块的依赖-->
+<!--    下面的写法是错误的，xbc.moka.cloudsc 刚好等于父模块的groupId加上artifactId -->
+<!--    <groupId>xbc.moka.cloudsc</groupId>-->
+    <groupId>xbc.moka.cloudsc</groupId>
+    <artifactId>acct-biz</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>acct-service</module>
+        <module>acct-feign</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+</project>
