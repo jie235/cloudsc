@@ -1,4 +1,3 @@
-drop table if EXISTS scdemo.mytable;
 
 select * from pg_tables where schemaname ='scdemo';
 
@@ -28,7 +27,7 @@ price decimal(10,2) default 0.00,
 primary key (id)
 );
 
-comment on column scdemo.t_product is '库存数量';
+comment on column scdemo.t_product.amount is '库存数量';
 
 
 --账户表
