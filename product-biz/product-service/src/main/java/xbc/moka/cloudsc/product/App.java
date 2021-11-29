@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+//要想responseAdvice生效，这里需要这么配置
+@SpringBootApplication(scanBasePackages = {"xbc.moka.cloudsc.common", "xbc.moka.cloudsc.product"})
 @MapperScan(basePackages = "xbc.moka.cloudsc.product.mapper")
 @EnableTransactionManagement
 @EnableDiscoveryClient

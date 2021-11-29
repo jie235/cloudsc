@@ -14,6 +14,17 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product implements Serializable {
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", prodCode='" + prodCode + '\'' +
+                ", prodName='" + prodName + '\'' +
+                ", amount=" + amount +
+                ", price=" + price +
+                '}';
+    }
+
     private Integer id;
 
     private String prodCode;

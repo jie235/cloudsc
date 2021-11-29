@@ -28,7 +28,9 @@ public class AcctController {
     @SentinelResource(value = "acctGetAccountByCode")
     public Account getByCode(@ApiParam(value = "账户名，非空") @PathVariable(value = "acctCode") String acctCode) throws CloudScException {
         log.info("get account detail, acctCode is: {}", acctCode);
-        return acctService.selectByCode(acctCode);
+        Account account = acctService.selectByCode(acctCode);
+        System.out.println(account);
+        return account;
     }
 
     @PutMapping("update")

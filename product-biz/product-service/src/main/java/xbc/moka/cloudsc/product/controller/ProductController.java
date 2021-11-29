@@ -17,21 +17,25 @@ public class ProductController implements ProductFeign {
     @Autowired
     private ProductService productService;
 
+    @Override
     public Product getByCode(@PathVariable(value = "prodCode") String prodCode) throws CloudScException {
         log.info("get product detail: {}", prodCode);
         return productService.selectByCode(prodCode);
     }
 
+    @Override
     public Integer addProduct(@RequestBody Product product) {
         log.info("add product: {}", product);
         return productService.insertProduct(product);
     }
 
+    @Override
     public Integer update(@RequestBody Product product) {
         log.info("update product: {}", product);
         return productService.updateProduct(product);
     }
 
+    @Override
     public int del(@PathVariable(value = "prodCode") String prodCode) {
         log.info("delete product: {}", prodCode);
         return productService.deleteProduct(prodCode);

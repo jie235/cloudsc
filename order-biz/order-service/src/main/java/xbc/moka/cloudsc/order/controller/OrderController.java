@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import xbc.moka.cloudsc.common.dto.AccountDTO;
 import xbc.moka.cloudsc.common.entity.Account;
 import xbc.moka.cloudsc.common.entity.Order;
+import xbc.moka.cloudsc.common.entity.Product;
 import xbc.moka.cloudsc.common.exception.CloudScException;
+import xbc.moka.cloudsc.common.rsp.ResultData;
 import xbc.moka.cloudsc.feign.account.AccountFeign;
 import xbc.moka.cloudsc.feign.product.ProductFeign;
 import xbc.moka.cloudsc.order.service.OrderService;
 
+import javax.xml.transform.Result;
 import java.security.KeyStore;
 
 @RestController
@@ -29,24 +32,33 @@ public class OrderController {
     private ProductFeign productFeign;
 
     @PostMapping("/insertAccount")
-    public Integer add( @RequestBody AccountDTO accountDTO){
+    public ResultData<Integer> add(@RequestBody AccountDTO accountDTO){
         return accountFeign.addAccount(accountDTO);
     }
 
     @PutMapping("/updateAccount")
-    public Integer update(@RequestBody AccountDTO accountDTO){
+    public ResultData<Integer> update(@RequestBody AccountDTO accountDTO){
         return accountFeign.updateAccount(accountDTO);
     }
 
     @DeleteMapping("/deleteAccount/{acctCode}")
-    public Integer del(@PathVariable(value = "acctCode") String acctCode){
+    public ResultData<Integer> del(@PathVariable(value = "acctCode") String acctCode){
         return accountFeign.delAccount(acctCode);
     }
 
     //接口存在问题：在accountService中，统一处理了返回值，而这里用了Account接收。（但是用Object接收也有问题）
     @GetMapping("/getAccount")
-    public Object getPage(@RequestParam String acctCode) throws CloudScException {
-        Object byCode = accountFeign.getByCode(acctCode);
+    public ResultData<Account> getPage(@RequestParam String acctCode) throws CloudScException {
+        ResultData<Account> byCode = accountFeign.getByCode(acctCode);
+        System.out.println(byCode.toString());
+        return byCode;
+    }
+
+    @GetMapping("/getProduct")
+    public Object getProduct(@RequestParam String prodCode) throws CloudScException {
+        Object byCode = productFeign.getByCode(prodCode);
+        ResultData<Product> res = (ResultData<Product>)byCode;
+        System.out.println(res);
         return byCode;
     }
 

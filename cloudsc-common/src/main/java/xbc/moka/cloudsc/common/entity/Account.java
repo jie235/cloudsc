@@ -19,6 +19,18 @@ import org.springframework.validation.annotation.Validated;
 @ApiModel
 @Validated
 public class Account implements Serializable {
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", acctCode='" + acctCode + '\'' +
+                ", acctName='" + acctName + '\'' +
+                ", amount=" + amount +
+                ", testBasicType=" + testBasicType +
+                '}';
+    }
+
     @ApiModelProperty(value = "id")
     private Integer id;
 

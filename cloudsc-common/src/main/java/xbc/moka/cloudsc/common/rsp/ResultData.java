@@ -5,6 +5,17 @@ import xbc.moka.cloudsc.common.enums.CloudScEnum;
 import java.time.LocalDateTime;
 
 public class ResultData<T> {
+
+    @Override
+    public String toString() {
+        return "ResultData{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", time=" + time +
+                '}';
+    }
+
     private Integer status;
     private String message;
     private T data;
