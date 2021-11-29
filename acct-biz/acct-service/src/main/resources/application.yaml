@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 9001
 spring:
   application:
     name: acct-service
@@ -7,15 +7,22 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/cloudsc
     username: cloudsc
-    password: adc2342wr
+    password: psd2021
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
     sentinel:
       transport:
-        dashboard: localhost:8890
+        dashboard: localhost:8090
       eager: true
+      datasource:
+        ds:
+          nacos:
+            sever-addr: 127.0.0.1:8848
+            data-id: ${spring.application.name}-sentinel
+            group-id: DEFAULT_GROUP
+            rule-type: flow
 swagger:
   enable: true
 mybatis:

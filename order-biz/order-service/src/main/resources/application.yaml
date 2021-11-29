@@ -1,5 +1,5 @@
 server:
-  port: 8095
+  port: 9003
 spring:
   application:
     name: order-service
@@ -7,7 +7,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/cloudsc
     username: cloudsc
-    password: adc2342wr
+    password: psd2021
   cloud:
     nacos:
       discovery:

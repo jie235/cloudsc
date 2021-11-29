@@ -1,5 +1,5 @@
 server:
-  port: 8093
+  port: 9002
 spring:
   application:
     name: product-service
@@ -7,14 +7,14 @@ spring:
     url: jdbc:postgresql://localhost:5432/cloudsc
     driver-class-name: org.postgresql.Driver
     username: cloudsc
-    password: adc2342wr
+    password: psd2021
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
     sentinel:
       transport:
-        dashboard: localhost:8890
+        dashboard: localhost:8090
       eager: true
 mybatis:
   mapper-locations: classpath:mapper/*.xml

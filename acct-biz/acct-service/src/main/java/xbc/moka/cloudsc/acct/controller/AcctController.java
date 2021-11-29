@@ -1,6 +1,7 @@
 package xbc.moka.cloudsc.acct.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import xbc.moka.cloudsc.acct.service.AcctService;
 import xbc.moka.cloudsc.common.dto.AccountDTO;
 import xbc.moka.cloudsc.common.entity.Account;
+import xbc.moka.cloudsc.common.enums.CloudScEnum;
 import xbc.moka.cloudsc.common.enums.ValidGroup;
 import xbc.moka.cloudsc.common.exception.CloudScException;
+import xbc.moka.cloudsc.common.rsp.ResultData;
 
 @RestController
 @RequestMapping("/account")
@@ -25,12 +28,19 @@ public class AcctController {
 
     @GetMapping("/{acctCode}")
     @ApiOperation(value = "通过账户名查询账户")
-    @SentinelResource(value = "acctGetAccountByCode")
+    @SentinelResource(value = "acctGetAccountByCode", blockHandler = "handleException")
     public Account getByCode(@ApiParam(value = "账户名，非空") @PathVariable(value = "acctCode") String acctCode) throws CloudScException {
         log.info("get account detail, acctCode is: {}", acctCode);
         Account account = acctService.selectByCode(acctCode);
         System.out.println(account);
         return account;
+    }
+
+    //handleException 的返回值类型必须和相应的sentinalResource的返回类型相同，如果返回值是自动封装的，想提示达到阈值还有点麻烦
+    public Account handleException(String accountCode, BlockException exception){
+        log.info("flow exception{}", exception.getClass().getCanonicalName());
+//        return ResultData.fail(CloudScEnum.THRESHOLD.getStatus(), CloudScEnum.THRESHOLD.getMessage());
+        return null;
     }
 
     @PutMapping("update")

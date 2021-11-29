@@ -56,9 +56,8 @@ public class OrderController {
 
     @GetMapping("/getProduct")
     public Object getProduct(@RequestParam String prodCode) throws CloudScException {
-        Object byCode = productFeign.getByCode(prodCode);
-        ResultData<Product> res = (ResultData<Product>)byCode;
-        System.out.println(res);
+        Product byCode = productFeign.getByCode(prodCode);
+        System.out.println(byCode);
         return byCode;
     }
 

@@ -10,7 +10,9 @@ public enum CloudScEnum {
     RC404(404, "请求的接口或资源不存在"),
     RC405(405, "请求格式不正确"),
     RC408(408, "请求超时"),
-    RC500(500, "服务端发生错误")
+    RC500(500, "服务端发生错误"),
+
+    THRESHOLD(900, "达到阈值了，请不要请求了！")
 
     ;
     private Integer status;
