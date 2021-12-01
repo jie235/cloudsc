@@ -14,6 +14,7 @@ import xbc.moka.cloudsc.common.entity.Account;
 import xbc.moka.cloudsc.common.enums.CloudScEnum;
 import xbc.moka.cloudsc.common.exception.CloudScException;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -30,6 +31,17 @@ public class AcctServiceImpl implements AcctService {
         }
         Account account = accountMapper.selectByCode(code);
         return account;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class, SQLException.class})
+    public void reduce(String acctCode, BigDecimal amount){
+        Account account = accountMapper.selectByCode(acctCode);
+        if(account.getAmount().compareTo(amount) < 0){
+            throw new RuntimeException("账户余额不够啦！");
+        }
+        account.setAmount(account.getAmount().subtract(amount));
+        accountMapper.updateByAcctCode(account);
     }
 
     @Override

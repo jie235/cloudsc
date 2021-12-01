@@ -102,7 +102,7 @@
                 prod_name = #{prodName},
             </if>
             <if test="amount !=null">
-                amount={amount},
+                amount=#{amount},
             </if>
             <if test="price != null">
                 price=#{price},

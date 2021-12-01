@@ -5,13 +5,21 @@ spring:
     name: order-service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/cloudsc
+#    seata和mysql绑定的有些死，直接在seata的pg manager中写死了表名而没有检查schema，因此对于使用schema的数据库，undo_log表和undo_log_id_seq会出错
+#    为了方便解决，在这里指定schema的名称
+    url: jdbc:postgresql://localhost:5432/cloudsc?currentSchema=scdemo
     username: cloudsc
     password: psd2021
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata
+#      client:
+#        undo:
+#          logTable: scdemo.undo_log
 feign:
   client:
     config:
@@ -20,3 +28,8 @@ feign:
         readTimeout: 3000
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+seata:
+  client:
+    undo:
+      # 字定义 undo_log 表名
+      log-table: scdemo.undo_log

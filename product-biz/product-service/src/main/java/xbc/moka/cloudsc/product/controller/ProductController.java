@@ -24,6 +24,12 @@ public class ProductController implements ProductFeign {
     }
 
     @Override
+    public void reduce(String prodCode, Integer count) {
+        log.info("Preparing deduce product amount");
+        productService.deduce(prodCode, count);
+    }
+
+    @Override
     public Integer addProduct(@RequestBody Product product) {
         log.info("add product: {}", product);
         return productService.insertProduct(product);

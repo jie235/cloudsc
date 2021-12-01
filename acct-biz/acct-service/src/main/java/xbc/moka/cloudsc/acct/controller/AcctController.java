@@ -17,6 +17,8 @@ import xbc.moka.cloudsc.common.enums.ValidGroup;
 import xbc.moka.cloudsc.common.exception.CloudScException;
 import xbc.moka.cloudsc.common.rsp.ResultData;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/account")
 @Slf4j
@@ -34,6 +36,12 @@ public class AcctController {
         Account account = acctService.selectByCode(acctCode);
         System.out.println(account);
         return account;
+    }
+
+    @GetMapping("pay")
+    public void reduce(@RequestParam("acctCode") String acctCode, @RequestParam("amount")BigDecimal amount){
+        log.info("Preparing deduce account money");
+        acctService.reduce(acctCode, amount);
     }
 
     //handleException 的返回值类型必须和相应的sentinalResource的返回类型相同，如果返回值是自动封装的，想提示达到阈值还有点麻烦

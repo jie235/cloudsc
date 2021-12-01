@@ -14,6 +14,8 @@ public interface ProductService {
      */
     Product selectByCode(String code) throws CloudScException;
 
+    void deduce(String prodCode, Integer count);
+
     /**
      * 更新产品信息
      *

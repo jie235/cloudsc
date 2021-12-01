@@ -12,6 +12,10 @@ public interface ProductFeign {
     @GetMapping("/{prodCode}")
     public Product getByCode(@PathVariable(value = "prodCode") String prodCode) throws CloudScException;
 
+    @GetMapping("reduceProduct")
+    public void reduce(@RequestParam("prodCode") String prodCode, @RequestParam("count") Integer count);
+
+
     @PostMapping("/add")
     public Integer addProduct(@RequestBody Product product) ;
 

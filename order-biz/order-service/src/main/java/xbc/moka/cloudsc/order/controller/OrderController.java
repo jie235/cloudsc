@@ -15,7 +15,9 @@ import xbc.moka.cloudsc.feign.product.ProductFeign;
 import xbc.moka.cloudsc.order.service.OrderService;
 
 import javax.xml.transform.Result;
+import java.math.BigDecimal;
 import java.security.KeyStore;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/order")
@@ -30,6 +32,16 @@ public class OrderController {
 
     @Autowired
     private ProductFeign productFeign;
+
+    @PostMapping("create")
+    public void create(@RequestBody Order order) throws CloudScException {
+        log.info("create order: {}", order);
+        order.setOrderNo(UUID.randomUUID().toString());
+        String prodCode = order.getProdCode();
+        Product byCode = productFeign.getByCode(prodCode);
+        order.setAmount(byCode.getPrice().multiply(new BigDecimal(order.getCnt())));
+        orderService.createOrder(order);
+    }
 
     @PostMapping("/insertAccount")
     public ResultData<Integer> add(@RequestBody AccountDTO accountDTO){

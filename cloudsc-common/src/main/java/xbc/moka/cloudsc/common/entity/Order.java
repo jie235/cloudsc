@@ -18,6 +18,18 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order implements Serializable {
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderNo='" + orderNo + '\'' +
+                ", acctCode='" + acctCode + '\'' +
+                ", prodCode='" + prodCode + '\'' +
+                ", cnt=" + cnt +
+                ", amount=" + amount +
+                '}';
+    }
+
     private Integer id;
 
     private String orderNo;

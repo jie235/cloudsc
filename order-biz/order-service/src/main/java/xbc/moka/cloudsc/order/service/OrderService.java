@@ -14,6 +14,8 @@ public interface OrderService {
      */
     Order selectByOrderNo(String orderNo) throws CloudScException;
 
+    void createOrder(Order order);
+
     /**
      * 更新产品信息
      *

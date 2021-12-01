@@ -31,6 +31,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class, SQLException.class})
+    public void deduce(String prodCode, Integer count) {
+        Product product = productMapper.selectByCode(prodCode);
+        if(product.getAmount() < count){
+            throw new RuntimeException("不要意思欸，库存不足哦！");
+        }
+        product.setAmount(product.getAmount() - count);
+        productMapper.updateByProdCode(product);
+    }
+
+    @Override
     @Transactional(rollbackFor = SQLException.class, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     public Integer updateProduct(Product product) {
         return Optional.ofNullable(product)

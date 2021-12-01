@@ -4,7 +4,7 @@ spring:
   application:
     name: product-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/cloudsc
+    url: jdbc:postgresql://localhost:5432/cloudsc?currentSchema=scdemo
     driver-class-name: org.postgresql.Driver
     username: cloudsc
     password: psd2021
@@ -16,5 +16,12 @@ spring:
       transport:
         dashboard: localhost:8090
       eager: true
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+seata:
+  client:
+    undo:
+      log-table: scdemo.undo_log
