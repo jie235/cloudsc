@@ -57,7 +57,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-<!--        knife4j于springfox的版本存在较强的对应关系，版本使用不对应会造成错误-->
+<!--        knife4j与springfox的版本存在较强的对应关系，版本使用不对应会造成错误-->
 <!--        kinfe4j 2.x 对应 springfox2.x (OpenAPI2) -->
 <!--        kinfe4j 3.x 对应 springfox3.x (OpenAPI3) -->
 <!--        非springfox而是 springdoc-openapi 则使用下面的依赖: -->

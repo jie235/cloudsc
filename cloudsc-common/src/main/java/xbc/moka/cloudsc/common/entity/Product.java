@@ -3,6 +3,8 @@ package xbc.moka.cloudsc.common.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
@@ -13,6 +15,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "产品封装类Product", description = "产品相关信息封装，用于接口传参")
 public class Product implements Serializable {
     @Override
     public String toString() {
@@ -27,6 +30,7 @@ public class Product implements Serializable {
 
     private Integer id;
 
+    @ApiModelProperty(value = "产品代码")
     private String prodCode;
 
     private String prodName;
