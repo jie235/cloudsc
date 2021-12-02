@@ -13,6 +13,7 @@
         <module>cloudsc-common</module>
         <module>product-biz</module>
         <module>order-biz</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

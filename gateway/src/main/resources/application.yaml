@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+#          开启从注册中心动态创建路由功能，利用微服务名进行路由
+          enabled: true
+      routes:
+        - id: product-service
+#          看清楚了，是 uri 不是 url，否则会报类似这种错误
+#          Property: spring.cloud.gateway.routes[0].uri
+#          Value: null
+#          Reason: 不能为null
+          uri: lb://product-service
+          predicates:
+            #所有 /product/下的请求都转发到 product-service。
+            #如：http://localhost:gateway_port/product/xxx
+            - Path=/cloudsc/product/**
+          filters:
+            # 去掉第一个/后的地址。如：http://localhost:8080/cloudsc/product/xxx -> 实际请求 http://localhost:8080/product/xxx
+            - StripPrefix=1
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+          #这个path的缩进是可有可无的，不过还是缩进一下好吧，容易看
+          - Path=/cloudsc/account/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/cloudsc/order/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 9000
