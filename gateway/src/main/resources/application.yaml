@@ -24,6 +24,14 @@ spring:
           filters:
             # 去掉第一个/后的地址。如：http://localhost:8080/cloudsc/product/xxx -> 实际请求 http://localhost:8080/product/xxx
             - StripPrefix=1
+            - name: RequestRateLimiter
+              # 注意，下面的配置前面没有 -
+              args:
+                # 每秒处理的请求数
+                redis-rate-limiter.replenishRate: 1
+                # 一秒内完成的最大请求数
+                redis-rete-limiter.burstCapacity: 3
+                key-resolver: "#{@ipKeyResolver}"
         - id: account-service
           uri: lb://account-service
           predicates:
