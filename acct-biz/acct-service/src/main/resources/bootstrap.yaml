@@ -10,3 +10,8 @@ spring:
 #  指定配置文件环境为dev，如果缺少相应的配置文件，那么会取到没有环境后缀的配置文件${spring.application.name}.yml
 #  profiles:
 #    active: dev
+  security:
+    oauth2:
+      resource:
+        user-info-uri: http://localhost:9010/user/current/get
+        id: account-service

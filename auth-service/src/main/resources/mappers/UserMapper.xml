@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xbc.moka.authServer.Mapper.UserMapper">
+    <resultMap id="baseResultMap" type="xbc.moka.cloudsc.common.entity.User">
+        <result column="password" property="password"/>
+        <result column="username" property="username"/>
+        <result column="role" property="role"/>
+    </resultMap>
+
+    <select id="selectByUserName" resultMap="baseResultMap">
+        select username, password, role
+        from scdemo."users"
+        where username = #{username}
+    </select>
+
+
+</mapper>

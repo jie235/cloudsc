@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: auth-server
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/cloudsc?currentSchema=scdemo
+    username: cloudsc
+    password: psd2021
+server:
+  port: 9010
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
